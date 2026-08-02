@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101c1d" />
+  <title>Language Atlas — Find your language</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <main class="page-shell">
+    <header class="hero">
+      <a class="brand" href="#top" aria-label="Language Atlas home"><span class="brand-mark">&lt;/&gt;</span> language
+        atlas</a>
+      <button class="theme-button" id="theme-toggle" type="button" aria-label="Use light color theme">◐
+        <span>Theme</span></button>
+      <div class="hero-copy" id="top">
+        <p class="eyebrow">A FIELD GUIDE TO 83 LANGUAGES</p>
+        <h1>Find the language<br /><em>shaped for your work.</em></h1>
+        <p class="intro">Explore programming languages through the characteristics that matter to you. Everything runs
+          locally — no accounts, no tracking, no network required.</p>
+      </div>
+      <div class="hero-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+    </header>
+
+    <section class="explorer" aria-label="Language explorer">
+      <aside class="filters" aria-label="Filters">
+        <div class="filter-heading">
+          <div>
+            <p class="eyebrow">FILTERS</p>
+            <h2>Refine the field</h2>
+          </div>
+          <button class="clear-button" id="clear-filters" type="button" hidden>Clear all</button>
+        </div>
+        <p class="filter-help">Select any options. Choices in a section broaden results; sections combine together.</p>
+        <div id="filter-groups"></div>
+        <button class="method-button" id="method-button" type="button">How classifications work <span>↗</span></button>
+      </aside>
+
+      <section class="results" aria-live="polite">
+        <div class="results-topline">
+          <div>
+            <p class="eyebrow" id="result-kicker">ALL LANGUAGES</p>
+            <h2 id="result-count">83 languages</h2>
+          </div>
+          <label class="search"><span class="search-icon">⌕</span><input id="search-input" type="search"
+              placeholder="Search languages" autocomplete="off" /><span class="shortcut">/</span></label>
+        </div>
+        <div class="active-filters" id="active-filters" aria-label="Active filters"></div>
+        <div class="language-grid" id="language-grid"></div>
+        <div class="empty-state" id="empty-state" hidden>
+          <p class="empty-glyph">∅</p>
+          <h3>No languages here yet.</h3>
+          <p>Try removing a filter or using a broader search.</p><button id="empty-clear" type="button">Reset
+            filters</button>
+        </div>
+      </section>
+    </section>
+
+    <footer><span>LANGUAGE ATLAS / JULY 2026</span><span>Built for curious developers</span><button id="footer-method"
+        type="button">Classification notes</button></footer>
+  </main>
+
+  <dialog id="method-dialog">
+    <div class="dialog-head">
+      <p class="eyebrow">METHODOLOGY</p><button class="close-dialog" type="button" aria-label="Close notes">×</button>
+    </div>
+    <h2>Useful labels, carefully applied.</h2>
+    <div class="method-copy">
+      <p><strong>Scope.</strong> This offline atlas records common, maintained implementations and official first-class
+        targets as of July 2026. A language can appear in more than one category where that reflects a supported
+        implementation or target.</p>
+      <p><strong>Typing.</strong> “Gradual” denotes a language that deliberately combines static and dynamic checking;
+        it is shown alongside its primary static or dynamic model. “Strong” and “weak” follow common coercion and
+        implicit-conversion conventions, which are inherently less formal than static/dynamic typing.</p>
+      <p><strong>Execution.</strong> “Compiled” includes ahead-of-time, bytecode, and transpilation workflows.
+        “Interpreted” includes a standard interpreter or VM execution path. Both may apply, especially to VM and JIT
+        languages.</p>
+      <p><strong>Platforms.</strong> A platform tag means the language has an established implementation, SDK, or
+        first-class compilation target there — not merely that an arbitrary third-party transpiler can theoretically
+        target it.</p>
+      <p><strong>Runtimes.</strong> “Standalone executable” means an official or mainstream implementation can produce a
+        native/self-contained executable. Other entries identify the primary runtime family in this guide.</p>
+    </div>
+    <form method="dialog"><button class="dialog-done" type="submit">Got it</button></form>
+  </dialog>
+  <script src="index.js"></script>
+</body>
+
+</html>

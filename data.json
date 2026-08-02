@@ -1,0 +1,2103 @@
+[
+  {
+    "name": "8th",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "ABAP",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "ARM64 Assembly",
+    "kind": "assembly language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Arturo",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "AWK",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Ballerina",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "Bash",
+    "kind": "shell language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "macOS",
+      "Linux",
+      "Windows"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Batch Script",
+    "kind": "shell language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "C",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "C#",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Common Language Runtime (.NET)"
+    ]
+  },
+  {
+    "name": "C++",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Cairo",
+    "kind": "language",
+    "paradigms": [
+      "Declarative",
+      "Functional",
+      "Imperative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "CFML",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime",
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "Clojure",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "COBOL",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "CoffeeScript",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Common Lisp",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Crystal",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "D",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Dart",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Delphi Pascal",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Elixir",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "BEAM (Erlang)"
+    ]
+  },
+  {
+    "name": "Elm",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Emacs Lisp",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Erlang",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Logic",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "BEAM (Erlang)"
+    ]
+  },
+  {
+    "name": "Euphoria",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "F#",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Common Language Runtime (.NET)"
+    ]
+  },
+  {
+    "name": "Factor",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Fortran",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Free Pascal",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Futhark",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Gleam",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "BEAM (Erlang)"
+    ]
+  },
+  {
+    "name": "Go",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Groovy",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Gradual",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Android"
+    ],
+    "runtimes": [
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "Haskell",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative",
+      "Imperative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Idris",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Java",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "JavaScript",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "jq",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Julia",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Kotlin",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "Lean",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Lisp Flavoured Erlang",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "BEAM (Erlang)"
+    ]
+  },
+  {
+    "name": "Lua",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "MIPS Assembly",
+    "kind": "assembly language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "MoonScript",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Nim",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Objective-C",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "macOS",
+      "iOS"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "OCaml",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Odin",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Perl",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Pharo",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "PHP",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Gradual",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "PowerShell",
+    "kind": "shell language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Common Language Runtime (.NET)"
+    ]
+  },
+  {
+    "name": "Prolog",
+    "kind": "language",
+    "paradigms": [
+      "Declarative",
+      "Logic"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "PureScript",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Pyret",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Python",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Gradual",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "R",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Racket",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative",
+      "Imperative",
+      "Logic",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Raku",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Gradual",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "ReasonML",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Red",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Roc",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Ruby",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Rust",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Scala",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "JVM (Java)"
+    ]
+  },
+  {
+    "name": "Scheme",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative",
+      "Imperative"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "SQLite",
+    "kind": "query language",
+    "paradigms": [
+      "Declarative"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Standard ML",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable",
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Swift",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "macOS",
+      "Linux",
+      "iOS",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Tcl",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "TypeScript",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Gradual",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Uiua",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Unison",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Declarative"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "V",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "Vim script",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Dynamic",
+      "Weak"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Visual Basic",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled",
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Common Language Runtime (.NET)"
+    ]
+  },
+  {
+    "name": "WebAssembly",
+    "kind": "portable bytecode",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Wren",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "x86-64 Assembly",
+    "kind": "assembly language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Weak"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  },
+  {
+    "name": "YAMLScript",
+    "kind": "language",
+    "paradigms": [
+      "Functional",
+      "Imperative",
+      "Object-oriented"
+    ],
+    "typing": [
+      "Dynamic",
+      "Strong"
+    ],
+    "execution": [
+      "Interpreted"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux"
+    ],
+    "runtimes": [
+      "Language-specific runtime"
+    ]
+  },
+  {
+    "name": "Zig",
+    "kind": "language",
+    "paradigms": [
+      "Imperative",
+      "Procedural"
+    ],
+    "typing": [
+      "Static",
+      "Strong"
+    ],
+    "execution": [
+      "Compiled"
+    ],
+    "platforms": [
+      "Windows",
+      "macOS",
+      "Linux",
+      "iOS",
+      "Android",
+      "Web Browser"
+    ],
+    "runtimes": [
+      "Standalone executable"
+    ]
+  }
+]
