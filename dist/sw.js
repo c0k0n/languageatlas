@@ -1,11 +1,13 @@
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = `language-atlas-${CACHE_VERSION}`;
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/index.css',
   '/index.js',
-  '/data.json'
+  '/data.json',
+  '/manifest.json',
+  '/icon.svg'
 ];
 
 self.addEventListener('install', (event) => {

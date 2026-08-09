@@ -113,6 +113,7 @@ index.js        Filtering, comparison, focus trap, theme — vanilla JS
 data.json       The dataset (83 languages, one entry each)
 sw.js           Service worker with versioned cache for offline use
 manifest.json   Web app manifest for PWA installability
+icon.svg        App icon (favicon and PWA icon)
 data/           Original working notes (not shipped)
 _headers        Security + crawling headers, applied by Cloudflare Pages
 robots.txt      Search-engine hints for languageatlas.pages.dev
@@ -123,8 +124,9 @@ llms.txt        Machine-readable site brief for AI agents, per the llms.txt spec
 ## Deploying
 
 Any static host works. The files deploy as-is — copy `index.html`, `index.css`,
-`index.js`, `data.json`, `sw.js`, `manifest.json`, `robots.txt`, `sitemap.xml`,
-and `llms.txt` to the docroot. The live site runs on Cloudflare Pages.
+`index.js`, `data.json`, `sw.js`, `manifest.json`, `icon.svg`, `robots.txt`,
+`sitemap.xml`, and `llms.txt` to the docroot. The live site runs on Cloudflare
+Pages.
 
 The `_headers` file is Cloudflare Pages-specific: it applies the security and
 crawling headers (CSP, `X-Frame-Options`, `nosniff`, `X-Robots-Tag`, and
@@ -137,9 +139,19 @@ elsewhere, set the equivalent headers in that host's config.
   focus states, dialogs with proper labelling, `prefers-reduced-motion` respected,
   `prefers-contrast` for high-contrast users, live region on the result count,
   and an `aria-keyshortcuts` hint for the "/" search shortcut.
+- Language cards are `<article>`s with a real `<button>` title for the trait
+  dialog, plus sibling compare and homepage controls — no nested interactive
+  elements, no fake `role="button"` containers, no inline event handlers
+  (everything survives the strict CSP).
+- The comparison table uses proper `scope="col"` / `scope="row"` header cells
+  so screen readers can map each cell to its language and trait.
+- Filter group titles are styled `<span>`s inside the collapse toggle buttons —
+  headings stay headings, buttons stay buttons.
 - Arrow keys navigate within filter groups, and the search field matches against
   all language traits (name, kind, paradigms, typing, execution, platforms,
   runtimes) — not just the name. Search terms are highlighted in the result cards.
+  Search text is memoized per language so filtering and per-option counts stay
+  cheap.
 - Right-click (desktop) or long-press (mobile) a filter option to exclude it.
   Excluded options are tracked in the URL and shown with strikethrough styling.
 - Filter sections are collapsible with a chevron indicator, and collapsed state
@@ -160,9 +172,10 @@ elsewhere, set the equivalent headers in that host's config.
 - The dataset is validated in-browser on load: every entry must have all five
   trait groups plus a kind, non-empty values, and values that exist in the filter
   lists. Broken data fails loudly instead of rendering half a page.
-- A service worker with versioned cache precaches the app shell and data, making
-  the page fully functional offline after the first visit. Old caches are
-  automatically cleaned up on activation. A web app manifest enables PWA
+- A service worker with versioned cache precaches the app shell, data, manifest,
+  and icon, making the page fully functional offline after the first visit. Old
+  caches are automatically cleaned up on activation. A web app manifest
+  (`manifest.json` with `id`, `scope`, and an SVG icon) enables PWA
   installability.
 - `data.json` is preloaded via `<link rel="preload">` to start fetching the
   dataset as early as possible.

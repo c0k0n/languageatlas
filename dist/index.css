@@ -303,7 +303,7 @@ h2 {
     border-bottom: 1px solid var(--line);
 }
 
-.filter-group h3 {
+.filter-group-title {
     color: #d3dfdb;
     font: 500 12px var(--mono);
 }
@@ -327,11 +327,11 @@ h2 {
     min-width: 0;
 }
 
-.collapse-toggle:hover h3 {
+.collapse-toggle:hover .filter-group-title {
     color: var(--lime);
 }
 
-.collapse-toggle h3 {
+.collapse-toggle .filter-group-title {
     margin-bottom: 0;
 }
 
@@ -697,10 +697,20 @@ body.light mark {
 }
 
 .card-title {
-    font: 600 19px/1.15 var(--serif);
-    letter-spacing: -.03em;
     flex: 1;
     min-width: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--ink);
+    font: 600 19px/1.15 var(--serif);
+    letter-spacing: -.03em;
+    text-align: left;
+    cursor: pointer;
+}
+
+.card-title:hover {
+    color: var(--lime);
 }
 
 .card-arrow {
@@ -968,7 +978,7 @@ body.light mark {
     min-width: 120px;
 }
 
-.compare-table tbody strong {
+.compare-table tbody th {
     color: var(--blue);
     font: 500 10px var(--mono);
     text-transform: uppercase;
