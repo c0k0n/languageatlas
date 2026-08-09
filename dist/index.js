@@ -37,7 +37,7 @@
     kind: 'Kind'
   };
 
-  const state = { languages: [], selected: new Map(), excluded: new Map(), collapsed: new Set(), search: '', sort: 'az', compareMode: false, comparedLanguages: new Set() };
+  const state = { languages: [], selected: new Map(), excluded: new Map(), collapsed: new Set(), search: '', sort: 'az', comparedLanguages: new Set() };
 
   const elements = {
     groups: document.querySelector('#filter-groups'),
@@ -57,7 +57,6 @@
     detailsList: document.querySelector('#details-list'),
     heroCount: document.querySelector('#hero-count'),
     theme: document.querySelector('#theme-toggle'),
-    compareToggle: document.querySelector('#compare-toggle'),
     comparePanel: document.querySelector('#compare-panel'),
     compareClose: document.querySelector('#compare-close'),
     compareEmpty: document.querySelector('#compare-empty'),
@@ -65,7 +64,6 @@
     compareHeadRow: document.querySelector('#compare-head-row'),
     compareBody: document.querySelector('#compare-body'),
     compareTitle: document.querySelector('#compare-title'),
-    exportButton: document.querySelector('#export-button'),
     announcement: document.querySelector('#filter-announcement')
   };
 
@@ -130,15 +128,12 @@
       ? `<a class="card-link" href="${safe(language.url)}" target="_blank" rel="noopener noreferrer" aria-label="${safe(language.name)} homepage" onclick="event.stopPropagation()">↗</a>`
       : '';
     const isCompared = state.comparedLanguages.has(language.name);
-    const compareBtn = state.compareMode
-      ? `<button class="compare-toggle ${isCompared ? 'selected' : ''}" type="button" data-compare="${safe(language.name)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${safe(language.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}">${isCompared ? '✓' : '+'}</button>`
-      : '';
-    return `<button class="language-card${isCompared ? ' compare-selected' : ''}" type="button" data-language="${safe(language.name)}" aria-label="Show traits for ${safe(language.name)}">
-      ${compareBtn}
+    return `<div class="language-card${isCompared ? ' compare-selected' : ''}" role="button" tabindex="0" data-language="${safe(language.name)}" aria-label="Show traits for ${safe(language.name)}">
+      <button class="compare-toggle${isCompared ? ' selected' : ''}" type="button" data-compare="${safe(language.name)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${safe(language.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}">${isCompared ? '✓' : '+'}</button>
       <span class="card-top"><span class="card-title">${highlight(language.name, query)}</span>${link}<span class="card-arrow">↗</span></span>
       <span class="kind">${highlight(language.kind, query)}</span>
       <span class="tag-row">${tags.map((tag) => `<span class="tag">${highlight(tag, query)}</span>`).join('')}</span>
-    </button>`;
+    </div>`;
   }
 
   function sortedOptions(group, options) {
@@ -157,7 +152,7 @@
       const isCollapsed = state.collapsed.has(key);
       const sorted = sortedOptions(key, options);
       return `
-      <section class="filter-group" aria-labelledby="${key}-heading">
+      <section class="filter-group${isCollapsed ? ' collapsed' : ''}" aria-labelledby="${key}-heading">
         <div class="filter-group-head">
           <button class="collapse-toggle" type="button" data-collapse="${key}" aria-expanded="${isCollapsed ? 'false' : 'true'}" aria-controls="${key}-options">
             <h3 id="${key}-heading">${title}</h3>
@@ -165,7 +160,7 @@
           </button>
           <button class="group-clear" type="button" data-group-clear="${key}" ${(selected?.size || excluded?.size) ? '' : 'hidden'}>Clear</button>
         </div>
-        <div class="option-list" id="${key}-options" ${isCollapsed ? 'hidden' : ''}>${sorted.map((option) => {
+        <div class="option-list" id="${key}-options">${sorted.map((option) => {
           const count = countFor(key, option);
           const isExcluded = excluded?.has(option);
           const isSelected = selected?.has(option);
@@ -187,8 +182,8 @@
       return `<li class="filter-pill ${type === 'exclude' ? 'excluded' : ''}">${label}<button type="button" data-remove="${safe(group)}" data-value="${safe(value)}" aria-label="Remove ${safe(value)}">×</button></li>`;
     }).join('');
     elements.sort.value = state.sort;
-    elements.compareToggle.setAttribute('aria-pressed', String(state.compareMode));
-    elements.comparePanel.hidden = !state.compareMode || state.comparedLanguages.size === 0;
+    elements.comparePanel.hidden = state.comparedLanguages.size === 0;
+    renderCompareBar();
     syncUrl();
   }
 
@@ -330,50 +325,54 @@
     requestAnimationFrame(() => { elements.announcement.textContent = message; });
   }
 
+  const COMPARE_MAX = 5;
+
   function toggleCompareLanguage(name) {
     if (state.comparedLanguages.has(name)) {
       state.comparedLanguages.delete(name);
-    } else if (state.comparedLanguages.size < 3) {
+    } else if (state.comparedLanguages.size < COMPARE_MAX) {
       state.comparedLanguages.add(name);
     } else {
-      announce('Maximum 3 languages for comparison.');
+      announce(`Maximum ${COMPARE_MAX} languages for comparison.`);
       return;
     }
     renderCards();
     renderComparison();
+    renderCompareBar();
   }
 
   function renderComparison() {
     const names = [...state.comparedLanguages];
     const count = names.length;
-    elements.compareTitle.textContent = count ? `${count} ${count === 1 ? 'language' : 'languages'} selected` : 'Select languages to compare';
+    elements.compareTitle.textContent = count
+      ? `${count} of ${COMPARE_MAX} selected`
+      : `Select up to ${COMPARE_MAX} languages to compare`;
     elements.compareEmpty.hidden = count > 0;
     elements.compareTableWrap.hidden = count === 0;
     if (count === 0) return;
     const languages = names.map((name) => state.languages.find((l) => l.name === name)).filter(Boolean);
-    elements.compareHeadRow.innerHTML = '<th></th>' + languages.map((l) =>
-      `<th><button type="button" data-compare-remove="${safe(l.name)}" aria-label="Remove ${safe(l.name)} from comparison">${safe(l.name)} &times;</button></th>`
+    elements.compareHeadRow.innerHTML = '<th class="compare-label-col"></th>' + languages.map((l) =>
+      `<th class="compare-lang-col"><button type="button" data-compare-remove="${safe(l.name)}" aria-label="Remove ${safe(l.name)} from comparison"><span class="compare-th-name">${safe(l.name)}</span><span class="compare-th-remove" aria-hidden="true">&times;</span></button></th>`
     ).join('');
     elements.compareBody.innerHTML = FIELDS.map((field) => {
       const label = FIELD_TITLES[field];
       const values = languages.map((l) => `<td>${asList(l[field]).join(', ')}</td>`).join('');
-      return `<tr><td><strong>${label}</strong></td>${values}</tr>`;
-    }).join('') + (languages.some((l) => l.url) ? `<tr><td><strong>Home</strong></td>${languages.map((l) => `<td>${l.url ? `<a href="${safe(l.url)}" target="_blank" rel="noopener noreferrer">${safe(l.url)}</a>` : '—'}</td>`).join('')}</tr>` : '');
+      return `<tr><td class="compare-row-label"><strong>${label}</strong></td>${values}</tr>`;
+    }).join('') + (languages.some((l) => l.url) ? `<tr><td class="compare-row-label"><strong>Home</strong></td>${languages.map((l) => `<td>${l.url ? `<a href="${safe(l.url)}" target="_blank" rel="noopener noreferrer">${safe(l.url)}</a>` : '—'}</td>`).join('')}</tr>` : '');
   }
 
-  function exportAsImage() {
-    if (typeof html2canvas === 'undefined') { announce('Export library not loaded. Check your connection.'); return; }
-    const grid = elements.grid;
-    if (grid.hidden) { announce('Nothing to export — no languages visible.'); return; }
-    elements.exportButton.disabled = true;
-    elements.exportButton.textContent = 'Exporting…';
-    html2canvas(grid, { backgroundColor: null, scale: 2 }).then((canvas) => {
-      const link = document.createElement('a');
-      link.download = 'language-atlas.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }).catch(() => { announce('Export failed. Try again.'); })
-      .finally(() => { elements.exportButton.disabled = false; elements.exportButton.textContent = 'Export PNG'; });
+  function renderCompareBar() {
+    const bar = document.getElementById('compare-bar');
+    const chips = document.getElementById('compare-chips');
+    const countLabel = document.getElementById('compare-bar-count');
+    if (!bar || !chips || !countLabel) return;
+    const names = [...state.comparedLanguages];
+    const count = names.length;
+    bar.hidden = count === 0;
+    countLabel.textContent = `${count}/${COMPARE_MAX}`;
+    chips.innerHTML = names.map((name) =>
+      `<span class="compare-chip"><span class="compare-chip-name">${safe(name)}</span><button type="button" class="compare-chip-remove" data-compare-remove="${safe(name)}" aria-label="Remove ${safe(name)}">&times;</button></span>`
+    ).join('') + (count < COMPARE_MAX ? `<span class="compare-chip compare-chip-hint">Click cards to add (${COMPARE_MAX - count} left)</span>` : '<span class="compare-chip compare-chip-hint compare-chip-full">Maximum reached</span>');
   }
 
   function trapFocus(dialog) {
@@ -447,21 +446,18 @@
     elements.dialog.querySelector('.close-dialog').addEventListener('click', () => elements.dialog.close());
     elements.details.querySelector('.close-dialog').addEventListener('click', () => elements.details.close());
     elements.theme.addEventListener('click', () => setTheme(document.body.classList.contains('light') ? 'dark' : 'light'));
-    elements.compareToggle.addEventListener('click', () => {
-      state.compareMode = !state.compareMode;
-      if (!state.compareMode) { state.comparedLanguages.clear(); }
-      elements.comparePanel.hidden = !state.compareMode || state.comparedLanguages.size === 0;
-      renderCards();
-      renderComparison();
-    });
     elements.compareClose.addEventListener('click', () => {
-      state.compareMode = false;
       state.comparedLanguages.clear();
       elements.comparePanel.hidden = true;
-      elements.compareToggle.setAttribute('aria-pressed', 'false');
       renderCards();
+      renderCompareBar();
     });
-    elements.exportButton.addEventListener('click', exportAsImage);
+    document.getElementById('compare-done')?.addEventListener('click', () => {
+      if (state.comparedLanguages.size > 0) {
+        elements.comparePanel.hidden = false;
+        elements.comparePanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
     [elements.dialog, elements.details].forEach((dialog) => {
       dialog.addEventListener('cancel', (event) => { event.preventDefault(); dialog.close(); });
       trapFocus(dialog);
@@ -469,6 +465,11 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === '/' && document.activeElement !== elements.search) { event.preventDefault(); elements.search.focus(); }
       if (event.key === 'Escape' && document.activeElement === elements.search) elements.search.blur();
+      if ((event.key === 'Enter' || event.key === ' ') && event.target.closest('.language-card') && !event.target.closest('.compare-toggle')) {
+        const card = event.target.closest('.language-card');
+        event.preventDefault();
+        showDetails(card.dataset.language);
+      }
       if ((event.key === 'ArrowRight' || event.key === 'ArrowLeft') && event.target.classList.contains('option')) {
         const options = [...event.target.closest('.option-list').querySelectorAll('.option')];
         const index = options.indexOf(event.target);

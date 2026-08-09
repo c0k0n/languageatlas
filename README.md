@@ -37,10 +37,9 @@ filter bar as "NOT Paradigm: Object-oriented." Filter sections are collapsible
 choices float to the top, and search highlights matching text in the result
 cards. Each language card also links to its official homepage.
 
-Hit the **Compare** button to enter comparison mode — click up to 3 language
-cards to select them, and a side-by-side trait table appears below the grid.
-**Export PNG** renders the current filtered grid as a downloadable image (powered
-by html2canvas from a CDN).
+Hit the **+** button on any language card to add it to a comparison (up to 5).
+A comparison bar appears showing your selected languages, and a side-by-side
+trait table is available below the grid.
 
 ## What this is not
 
@@ -110,7 +109,7 @@ That's it. No `npm install`, no config, no build.
 ```
 index.html      Page structure, dialogs, comparison panel, and preload link
 index.css       All styling (dark/light themes, responsive, reduced-motion, contrast)
-index.js        Filtering, comparison, export, focus trap, theme — vanilla JS
+index.js        Filtering, comparison, focus trap, theme — vanilla JS
 data.json       The dataset (83 languages, one entry each)
 sw.js           Service worker with versioned cache for offline use
 manifest.json   Web app manifest for PWA installability
@@ -119,9 +118,6 @@ _headers        Security + crawling headers, applied by Cloudflare Pages
 robots.txt      Search-engine hints for languageatlas.pages.dev
 sitemap.xml     Single-page sitemap for languageatlas.pages.dev
 ```
-
-External dependency: html2canvas (loaded from CDN) is used for the Export PNG
-feature. If you need fully offline export, you'd need to bundle it locally.
 
 ## Deploying
 
@@ -170,12 +166,10 @@ elsewhere, set the equivalent headers in that host's config.
 - `data.json` is preloaded via `<link rel="preload">` to start fetching the
   dataset as early as possible.
 - Headings use `text-wrap: balance` for better visual rhythm on wider viewports.
-- Comparison mode lets users select up to 3 languages and view their traits
-  side-by-side in a table. The comparison panel is keyboard-accessible and
-  announces selection changes to screen readers.
-- Export PNG captures the current filtered grid as a downloadable image using
-  html2canvas (loaded from a CDN). The button shows loading state and announces
-  errors to screen readers.
+- Comparison lets users select up to 5 languages via the + button on each card.
+  A comparison bar shows selected languages with remove buttons, and a
+  side-by-side trait table is available below the grid. The comparison panel is
+  keyboard-accessible and announces selection changes to screen readers.
 - A `@media print` stylesheet hides the UI chrome and outputs a clean reference
   card of the current filtered view.
 - JSON-LD structured data is included for search engine understanding.

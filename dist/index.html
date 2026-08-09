@@ -105,11 +105,15 @@
                 <option value="za">Name Z–A</option>
               </select>
             </label>
-            <button class="action-button" id="compare-toggle" type="button" aria-pressed="false">Compare</button>
-            <button class="action-button" id="export-button" type="button">Export PNG</button>
           </div>
         </div>
         <ul class="active-filters" id="active-filters" aria-label="Active filters"></ul>
+        <div class="compare-bar" id="compare-bar" hidden>
+          <span class="compare-bar-label">COMPARING</span>
+          <span class="compare-bar-count" id="compare-bar-count">0/5</span>
+          <div class="compare-bar-chips" id="compare-chips"></div>
+          <button class="compare-bar-done" id="compare-done" type="button">View comparison</button>
+        </div>
         <div class="sr-only" id="filter-announcement" aria-live="assertive" aria-atomic="true"></div>
         <div class="language-grid" id="language-grid"></div>
         <div class="empty-state" id="empty-state" hidden>
@@ -124,12 +128,12 @@
         <div class="compare-head">
           <div>
             <p class="eyebrow">COMPARISON</p>
-            <h2 id="compare-title">Select languages to compare</h2>
+            <h2 id="compare-title">Select up to 5 languages to compare</h2>
           </div>
           <button class="action-button" id="compare-close" type="button">Close</button>
         </div>
         <div class="compare-empty" id="compare-empty">
-          <p>Click the <strong>Compare</strong> button on language cards to select up to 3 languages.</p>
+          <p>Click the <strong>+</strong> button on language cards to select up to 5 languages for a side-by-side comparison.</p>
         </div>
         <div class="compare-table-wrap" id="compare-table-wrap">
           <table class="compare-table" id="compare-table">
@@ -181,7 +185,6 @@
     <form method="dialog"><button class="dialog-done" type="submit">Close</button></form>
   </dialog>
 
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
   <script src="index.js"></script>
 </body>
 
