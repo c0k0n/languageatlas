@@ -117,13 +117,14 @@ data/           Original working notes (not shipped)
 _headers        Security + crawling headers, applied by Cloudflare Pages
 robots.txt      Search-engine hints for languageatlas.pages.dev
 sitemap.xml     Single-page sitemap for languageatlas.pages.dev
+llms.txt        Machine-readable site brief for AI agents, per the llms.txt spec
 ```
 
 ## Deploying
 
 Any static host works. The files deploy as-is — copy `index.html`, `index.css`,
-`index.js`, `data.json`, `sw.js`, `manifest.json`, `robots.txt`, and
-`sitemap.xml` to the docroot. The live site runs on Cloudflare Pages.
+`index.js`, `data.json`, `sw.js`, `manifest.json`, `robots.txt`, `sitemap.xml`,
+and `llms.txt` to the docroot. The live site runs on Cloudflare Pages.
 
 The `_headers` file is Cloudflare Pages-specific: it applies the security and
 crawling headers (CSP, `X-Frame-Options`, `nosniff`, `X-Robots-Tag`, and

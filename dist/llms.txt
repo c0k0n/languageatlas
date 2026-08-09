@@ -1,0 +1,17 @@
+# Language Atlas
+
+> An offline field guide to 83 programming languages. Filter by kind, paradigm, typing, typing strength, execution mode, platform, and runtime — no accounts, no tracking, no network required.
+
+Language Atlas is a hand-maintained dataset of programming languages, presented through filters and full-text search on a single static page. Each language entry is a JSON object in `data.json` describing its kind, paradigms, typing, typing strength, execution mode, platforms, and runtimes, with an optional official homepage URL. The page is a plain HTML/CSS/JS app with a service worker for offline use after the first visit; there is no build step, no backend, and no tracking.
+
+## Key resources
+
+- [Language Atlas homepage](https://languageatlas.pages.dev/): The app itself — filter and search the full dataset of 83 languages.
+- [Language dataset](https://languageatlas.pages.dev/data.json): The complete machine-readable dataset, one JSON entry per language.
+- [Web app manifest](https://languageatlas.pages.dev/manifest.json): PWA metadata for installability.
+- [Sitemap](https://languageatlas.pages.dev/sitemap.xml): URL index for crawlers.
+- [Robots.txt](https://languageatlas.pages.dev/robots.txt): Crawling rules, everything is public.
+
+## Optional
+
+- [Source repository](https://github.com/c0k0n/languageatlas): MIT-licensed source, working notes, and history.
