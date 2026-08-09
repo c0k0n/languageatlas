@@ -2,13 +2,7 @@
   'use strict';
 
   const THEME_KEY = 'language-atlas-theme';
-
-  // The option vocabulary below mirrors data/optionslist.txt (the original
-  // working notes). Every value in data.json is validated against these lists
-  // on load, so the dataset cannot silently drift from the filter UI.
-  // Note: 'typing' and 'strength' are two separate filter groups that both
-  // read the 'typing' field, so static/dynamic/gradual and strong/weak stay
-  // independently filterable instead of being lumped into one OR-group.
+  const COLLAPSED_KEY = 'language-atlas-collapsed';
 
   const FIELDS = ['paradigms', 'typing', 'execution', 'platforms', 'runtimes', 'kind'];
 
@@ -43,7 +37,7 @@
     kind: 'Kind'
   };
 
-  const state = { languages: [], selected: new Map(), search: '', sort: 'az' };
+  const state = { languages: [], selected: new Map(), excluded: new Map(), collapsed: new Set(), search: '', sort: 'az' };
 
   const elements = {
     groups: document.querySelector('#filter-groups'),
@@ -78,18 +72,38 @@
     return asList(values).some((value) => selected.has(value));
   }
 
+  function searchableText(language) {
+    return [language.name, language.kind, ...language.paradigms, ...language.typing, ...language.execution, ...language.platforms, ...language.runtimes].join(' ').toLocaleLowerCase();
+  }
+
+  function highlight(text, query) {
+    if (!query) return safe(text);
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return safe(text).replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+  }
+
   function matches(language) {
     const query = state.search.trim().toLocaleLowerCase();
-    if (query && !`${language.name} ${language.kind}`.toLocaleLowerCase().includes(query)) return false;
-    return [...state.selected].every(([group, values]) => !values.size || hasSelectedValue(language[FIELD.get(group)], values));
+    if (query && !searchableText(language).includes(query)) return false;
+    for (const [group, values] of state.selected) {
+      if (values.size && !hasSelectedValue(language[FIELD.get(group)], values)) return false;
+    }
+    for (const [group, values] of state.excluded) {
+      if (values.size && hasSelectedValue(language[FIELD.get(group)], values)) return false;
+    }
+    return true;
   }
 
   function countFor(group, option) {
-    const others = [...state.selected].filter(([selectedGroup]) => selectedGroup !== group);
     const query = state.search.trim().toLocaleLowerCase();
     return state.languages.filter((language) => {
-      if (query && !`${language.name} ${language.kind}`.toLocaleLowerCase().includes(query)) return false;
-      if (!others.every(([selectedGroup, values]) => !values.size || hasSelectedValue(language[FIELD.get(selectedGroup)], values))) return false;
+      if (query && !searchableText(language).includes(query)) return false;
+      for (const [g, values] of state.selected) {
+        if (g !== group && values.size && !hasSelectedValue(language[FIELD.get(g)], values)) return false;
+      }
+      for (const [g, values] of state.excluded) {
+        if (g !== group && values.size && hasSelectedValue(language[FIELD.get(g)], values)) return false;
+      }
       return asList(language[FIELD.get(group)]).includes(option);
     }).length;
   }
@@ -101,27 +115,47 @@
 
   function card(language) {
     const tags = [language.paradigms[0], language.typing.includes('Gradual') ? 'Gradual' : language.typing[0], language.execution[0]];
+    const query = state.search.trim();
+    const link = language.url
+      ? `<a class="card-link" href="${safe(language.url)}" target="_blank" rel="noopener noreferrer" aria-label="${safe(language.name)} homepage" onclick="event.stopPropagation()">↗</a>`
+      : '';
     return `<button class="language-card" type="button" data-language="${safe(language.name)}" aria-label="Show traits for ${safe(language.name)}">
-      <span class="card-top"><span class="card-title">${safe(language.name)}</span><span class="card-arrow">↗</span></span>
-      <span class="kind">${safe(language.kind)}</span>
-      <span class="tag-row">${tags.map((tag) => `<span class="tag">${safe(tag)}</span>`).join('')}</span>
+      <span class="card-top"><span class="card-title">${highlight(language.name, query)}</span>${link}<span class="card-arrow">↗</span></span>
+      <span class="kind">${highlight(language.kind, query)}</span>
+      <span class="tag-row">${tags.map((tag) => `<span class="tag">${highlight(tag, query)}</span>`).join('')}</span>
     </button>`;
+  }
+
+  function sortedOptions(group, options) {
+    return [...options].sort((a, b) => countFor(group, b) - countFor(group, a));
   }
 
   function render() {
     const visible = state.languages.filter(matches).sort(comparators[state.sort]);
-    const active = [...state.selected].flatMap(([group, values]) => [...values].map((value) => ({ group, value })));
+    const active = [
+      ...[...state.selected].flatMap(([group, values]) => [...values].map((value) => ({ group, value, type: 'include' }))),
+      ...[...state.excluded].flatMap(([group, values]) => [...values].map((value) => ({ group, value, type: 'exclude' })))
+    ];
     elements.groups.innerHTML = FILTERS.map(([key, title, options]) => {
       const selected = state.selected.get(key);
+      const excluded = state.excluded.get(key);
+      const isCollapsed = state.collapsed.has(key);
+      const sorted = sortedOptions(key, options);
       return `
       <section class="filter-group" aria-labelledby="${key}-heading">
         <div class="filter-group-head">
-          <h3 id="${key}-heading">${title}</h3>
-          <button class="group-clear" type="button" data-group-clear="${key}" ${selected?.size ? '' : 'hidden'}>Clear</button>
+          <button class="collapse-toggle" type="button" data-collapse="${key}" aria-expanded="${isCollapsed ? 'false' : 'true'}" aria-controls="${key}-options">
+            <h3 id="${key}-heading">${title}</h3>
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+          <button class="group-clear" type="button" data-group-clear="${key}" ${(selected?.size || excluded?.size) ? '' : 'hidden'}>Clear</button>
         </div>
-        <div class="option-list">${options.map((option) => {
+        <div class="option-list" id="${key}-options" ${isCollapsed ? 'hidden' : ''}>${sorted.map((option) => {
           const count = countFor(key, option);
-          return `<button class="option" type="button" data-group="${key}" data-option="${safe(option)}" aria-pressed="${selected?.has(option) ? 'true' : 'false'}" aria-label="${safe(option)}, ${count} matching languages">
+          const isExcluded = excluded?.has(option);
+          const isSelected = selected?.has(option);
+          const stateClass = isExcluded ? 'excluded' : isSelected ? 'included' : '';
+          return `<button class="option ${stateClass}" type="button" data-group="${key}" data-option="${safe(option)}" aria-pressed="${isSelected ? 'true' : 'false'}" aria-label="${safe(option)}, ${count} matching languages${isExcluded ? ', excluded' : ''}">
             <span>${safe(option)}</span><span class="option-count">${count}</span>
           </button>`;
         }).join('')}</div>
@@ -133,7 +167,10 @@
     elements.count.textContent = `${visible.length} ${visible.length === 1 ? 'language' : 'languages'}`;
     elements.kicker.textContent = active.length || state.search ? 'MATCHING YOUR VIEW' : 'ALL LANGUAGES';
     elements.clear.hidden = !active.length && !state.search;
-    elements.active.innerHTML = active.map(({ group, value }) => `<span class="filter-pill" role="listitem">${safe(FILTER_TITLES.get(group))}: ${safe(value)}<button type="button" data-remove="${safe(group)}" data-value="${safe(value)}" aria-label="Remove ${safe(value)}">×</button></span>`).join('');
+    elements.active.innerHTML = active.map(({ group, value, type }) => {
+      const label = type === 'exclude' ? `NOT ${safe(FILTER_TITLES.get(group))}: ${safe(value)}` : `${safe(FILTER_TITLES.get(group))}: ${safe(value)}`;
+      return `<li class="filter-pill ${type === 'exclude' ? 'excluded' : ''}">${label}<button type="button" data-remove="${safe(group)}" data-value="${safe(value)}" aria-label="Remove ${safe(value)}">×</button></li>`;
+    }).join('');
     elements.sort.value = state.sort;
     syncUrl();
   }
@@ -142,16 +179,29 @@
     const values = state.selected.get(group) || new Set();
     if (values.has(option)) values.delete(option); else values.add(option);
     if (values.size) state.selected.set(group, values); else state.selected.delete(group);
+    const excluded = state.excluded.get(group);
+    if (excluded?.has(option)) excluded.delete(option);
+    render();
+  }
+
+  function toggleExcluded(group, option) {
+    const values = state.excluded.get(group) || new Set();
+    if (values.has(option)) values.delete(option); else values.add(option);
+    if (values.size) state.excluded.set(group, values); else state.excluded.delete(group);
+    const selected = state.selected.get(group);
+    if (selected?.has(option)) selected.delete(option);
     render();
   }
 
   function clearGroup(group) {
     state.selected.delete(group);
+    state.excluded.delete(group);
     render();
   }
 
   function clear() {
     state.selected.clear();
+    state.excluded.clear();
     state.search = '';
     elements.search.value = '';
     render();
@@ -162,10 +212,19 @@
     render();
   }
 
+  function toggleCollapse(group) {
+    if (state.collapsed.has(group)) state.collapsed.delete(group); else state.collapsed.add(group);
+    storage.set(COLLAPSED_KEY, JSON.stringify([...state.collapsed]));
+    render();
+  }
+
   function serializeState() {
     const params = [];
     [...state.selected].forEach(([group, values]) => {
       if (values.size) params.push(`${encodeURIComponent(group)}=${[...values].map(encodeURIComponent).join(',')}`);
+    });
+    [...state.excluded].forEach(([group, values]) => {
+      if (values.size) params.push(`exclude_${encodeURIComponent(group)}=${[...values].map(encodeURIComponent).join(',')}`);
     });
     if (state.search) params.push(`search=${encodeURIComponent(state.search)}`);
     if (state.sort !== 'az') params.push(`sort=${encodeURIComponent(state.sort)}`);
@@ -175,13 +234,17 @@
   function parseState() {
     const params = new URLSearchParams(window.location.hash.slice(1));
     state.selected = new Map();
+    state.excluded = new Map();
     params.forEach((value, key) => {
       if (key === 'search') { state.search = value; return; }
       if (key === 'sort') { state.sort = value === 'za' ? 'za' : 'az'; return; }
-      if (!FIELD.has(key)) return;
+      const isExclude = key.startsWith('exclude_');
+      const groupKey = isExclude ? key.slice(8) : key;
+      if (!FIELD.has(groupKey)) return;
+      const target = isExclude ? state.excluded : state.selected;
       const values = new Set(value.split(',').filter(Boolean));
-      values.forEach((item) => { if (!GROUP_VALUES.get(key).has(item)) values.delete(item); });
-      if (values.size) state.selected.set(key, values);
+      values.forEach((item) => { if (!GROUP_VALUES.get(groupKey).has(item)) values.delete(item); });
+      if (values.size) target.set(groupKey, values);
     });
     if (!params.has('search')) state.search = '';
     if (!params.has('sort')) state.sort = 'az';
@@ -199,7 +262,7 @@
     if (!language) return;
     elements.detailsTitle.textContent = language.name;
     elements.detailsKind.textContent = language.kind.toUpperCase();
-    elements.detailsList.replaceChildren(...FIELDS.map((field) => {
+    const rows = FIELDS.map((field) => {
       const row = document.createElement('p');
       const label = document.createElement('strong');
       label.textContent = FIELD_TITLES[field];
@@ -207,7 +270,22 @@
       values.textContent = asList(language[field]).join(' · ');
       row.append(label, values);
       return row;
-    }));
+    });
+    if (language.url) {
+      const row = document.createElement('p');
+      const label = document.createElement('strong');
+      label.textContent = 'Home';
+      const link = document.createElement('span');
+      const a = document.createElement('a');
+      a.href = language.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = language.url;
+      link.append(a);
+      row.append(label, link);
+      rows.push(row);
+    }
+    elements.detailsList.replaceChildren(...rows);
     elements.details.showModal();
   }
 
@@ -219,8 +297,12 @@
     storage.set(THEME_KEY, theme);
   }
 
+  let longPressTimer = null;
+
   function setupEvents() {
     document.addEventListener('click', (event) => {
+      const collapse = event.target.closest('[data-collapse]');
+      if (collapse) { toggleCollapse(collapse.dataset.collapse); return; }
       const option = event.target.closest('.option');
       if (option) return toggle(option.dataset.group, option.dataset.option);
       const groupClear = event.target.closest('[data-group-clear]');
@@ -230,6 +312,32 @@
       const language = event.target.closest('[data-language]');
       if (language) return showDetails(language.dataset.language);
     });
+
+    document.addEventListener('contextmenu', (event) => {
+      const option = event.target.closest('.option');
+      if (option) {
+        event.preventDefault();
+        toggleExcluded(option.dataset.group, option.dataset.option);
+      }
+    });
+
+    document.addEventListener('pointerdown', (event) => {
+      const option = event.target.closest('.option');
+      if (!option) return;
+      longPressTimer = setTimeout(() => {
+        toggleExcluded(option.dataset.group, option.dataset.option);
+        longPressTimer = null;
+      }, 500);
+    });
+
+    document.addEventListener('pointerup', () => { clearTimeout(longPressTimer); longPressTimer = null; });
+    document.addEventListener('pointercancel', () => { clearTimeout(longPressTimer); longPressTimer = null; });
+    document.addEventListener('pointermove', (event) => {
+      if (longPressTimer && event.target.closest('.option')) return;
+      clearTimeout(longPressTimer);
+      longPressTimer = null;
+    });
+
     elements.search.addEventListener('input', () => { state.search = elements.search.value; render(); });
     elements.sort.addEventListener('change', () => setSort(elements.sort.value));
     elements.clear.addEventListener('click', clear);
@@ -243,11 +351,21 @@
     document.addEventListener('keydown', (event) => {
       if (event.key === '/' && document.activeElement !== elements.search) { event.preventDefault(); elements.search.focus(); }
       if (event.key === 'Escape' && document.activeElement === elements.search) elements.search.blur();
+      if ((event.key === 'ArrowRight' || event.key === 'ArrowLeft') && event.target.classList.contains('option')) {
+        const options = [...event.target.closest('.option-list').querySelectorAll('.option')];
+        const index = options.indexOf(event.target);
+        const next = event.key === 'ArrowRight'
+          ? options[index + 1] || options[0]
+          : options[index - 1] || options[options.length - 1];
+        next.focus();
+        event.preventDefault();
+      }
     });
   }
 
   function isValidLanguage(language) {
     if (typeof language?.name !== 'string' || language.name.length === 0) return false;
+    if (language.url !== undefined && typeof language.url !== 'string') return false;
     return FIELDS.every((field) => {
       const values = asList(language[field]);
       return values.length > 0 && values.every((value) => typeof value === 'string' && FIELD_VALUES.get(field).has(value));
@@ -271,6 +389,10 @@
       const languages = await response.json();
       validate(languages);
       state.languages = languages;
+      const savedCollapsed = storage.get(COLLAPSED_KEY);
+      if (savedCollapsed) {
+        try { state.collapsed = new Set(JSON.parse(savedCollapsed)); } catch { /* ignore */ }
+      }
       parseState();
       elements.search.value = state.search;
       elements.heroCount.textContent = languages.length;
@@ -283,4 +405,8 @@
   }
 
   init();
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
 })();

@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#101c1d" />
+  <meta name="theme-color" content="#101c1d" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#edf3ef" media="(prefers-color-scheme: light)" />
   <meta name="robots" content="index, follow" />
   <meta name="referrer" content="no-referrer" />
   <meta name="description"
     content="An offline field guide to programming languages. Filter by kind, paradigm, typing, execution mode, platform, and runtime — no accounts, no tracking, no network required." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://languageatlas.pages.dev/" />
   <meta property="og:title" content="Language Atlas — Find your language" />
   <meta property="og:description"
     content="An offline field guide to programming languages. Filter by kind, paradigm, typing, execution mode, platform, and runtime." />
@@ -23,7 +25,31 @@
   <link rel="alternate" hreflang="x-default" href="https://languageatlas.pages.dev/" />
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23101c1d'/%3E%3Ctext x='50' y='70' font-size='52' text-anchor='middle' fill='%23d8fa63' font-family='monospace'%3E%26lt;/%26gt;%3C/text%3E%3C/svg%3E" />
+  <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="index.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Language Atlas",
+    "description": "An offline field guide to 83 programming languages. Filter by kind, paradigm, typing, execution mode, platform, and runtime.",
+    "url": "https://languageatlas.pages.dev/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Filter 83 programming languages by kind, paradigm, typing, execution mode, platform, and runtime",
+      "Full-text search across all language traits",
+      "Offline support via service worker",
+      "Dark and light themes",
+      "Keyboard accessible"
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -57,7 +83,7 @@
           </div>
           <button class="clear-button" id="clear-filters" type="button" hidden>Clear all</button>
         </div>
-        <p class="filter-help">Select any options. Choices in a section broaden results; sections combine together. Numbers show how many languages match under your other filters.</p>
+        <p class="filter-help">Select any options. Choices in a section broaden results; sections combine together. Numbers show how many languages match under your other filters. Right-click or long-press an option to exclude it.</p>
         <div id="filter-groups"></div>
         <button class="method-button" id="method-button" type="button">How classifications work <span>↗</span></button>
       </aside>
@@ -80,7 +106,7 @@
             </label>
           </div>
         </div>
-        <div class="active-filters" id="active-filters" role="list" aria-label="Active filters"></div>
+        <ul class="active-filters" id="active-filters" aria-label="Active filters"></ul>
         <div class="language-grid" id="language-grid"></div>
         <div class="empty-state" id="empty-state" hidden>
           <span class="empty-glyph" aria-hidden="true">∅</span>

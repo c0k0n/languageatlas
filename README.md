@@ -5,7 +5,8 @@ kind, paradigm, typing, execution mode, platform, and runtime — then click any
 language to see its full trait sheet.
 
 Built as a single static page. No frameworks, no build step, no dependencies,
-no accounts, no tracking. Open it, and it just works.
+no accounts, no tracking. Open it, and it just works. A service worker caches
+the app for true offline use after the first visit.
 
 Live at [https://languageatlas.pages.dev](https://languageatlas.pages.dev).
 
@@ -28,6 +29,14 @@ Typing is split into two sections — "Typing" (static / dynamic / gradual) and
 "Typing strength" (strong / weak) — because they are two different questions
 that shouldn't be mashed into one bucket.
 
+Right-click or long-press a filter option to exclude it — this lets you say
+"everything *except* Object-oriented" or "not standalone executables." Excluded
+options show with a strikethrough and coral styling, and appear in the active
+filter bar as "NOT Paradigm: Object-oriented." Filter sections are collapsible
+(sidebar state is remembered), options sort by match count so the most common
+choices float to the top, and search highlights matching text in the result
+cards. Each language card also links to its official homepage.
+
 ## What this is not
 
 This is not a ranking, not a popularity contest, and not an encyclopedia entry
@@ -38,7 +47,8 @@ nobody should pick a language from a filter UI alone, including this one.)
 
 ## How the data works
 
-- **Source of truth:** `data.json` — one entry per language.
+- **Source of truth:** `data.json` — one entry per language, each with an optional
+  `url` field linking to its official homepage.
 - **Reference notes:** `data/` contains the original working lists (`languageslist.txt`, `optionslist.txt`).
 - **Classification date:** July 2026. Languages change; this dataset is a snapshot, not a promise.
 
@@ -97,6 +107,8 @@ index.html      Page structure and the two dialogs
 index.css       All styling (dark/light themes, responsive, reduced-motion aware)
 index.js        Filtering, rendering, dialogs, theme persistence — vanilla JS
 data.json       The dataset (83 languages, one entry each)
+sw.js           Service worker for offline caching
+manifest.json   Web app manifest for PWA installability
 data/           Original working notes (not shipped)
 _headers        Security + crawling headers, applied by Cloudflare Pages
 robots.txt      Search-engine hints for languageatlas.pages.dev
@@ -106,8 +118,8 @@ sitemap.xml     Single-page sitemap for languageatlas.pages.dev
 ## Deploying
 
 Any static host works. The files deploy as-is — copy `index.html`, `index.css`,
-`index.js`, `data.json`, `robots.txt`, and `sitemap.xml` to the docroot. The
-live site runs on Cloudflare Pages.
+`index.js`, `data.json`, `sw.js`, `manifest.json`, `robots.txt`, and
+`sitemap.xml` to the docroot. The live site runs on Cloudflare Pages.
 
 The `_headers` file is Cloudflare Pages-specific: it applies the security and
 crawling headers (CSP, `X-Frame-Options`, `nosniff`, `X-Robots-Tag`, and
@@ -116,18 +128,37 @@ elsewhere, set the equivalent headers in that host's config.
 
 ## Accessibility & quality notes
 
-- Semantic HTML, keyboard-friendly, skip link, visible focus states, dialogs
-  with proper labelling, `prefers-reduced-motion` respected, live region on the
-  result count, and an `aria-keyshortcuts` hint for the "/" search shortcut.
+- Semantic HTML, keyboard-friendly, skip link with `scroll-margin-top`, visible
+  focus states, dialogs with proper labelling, `prefers-reduced-motion` respected,
+  live region on the result count, and an `aria-keyshortcuts` hint for the "/"
+  search shortcut.
+- Arrow keys navigate within filter groups, and the search field matches against
+  all language traits (name, kind, paradigms, typing, execution, platforms,
+  runtimes) — not just the name. Search terms are highlighted in the result cards.
+- Right-click (desktop) or long-press (mobile) a filter option to exclude it.
+  Excluded options are tracked in the URL and shown with strikethrough styling.
+- Filter sections are collapsible with a chevron indicator, and collapsed state
+  persists in localStorage. Options within each section are sorted by match count
+  so the most relevant choices appear first.
+- Active filter pills use semantic `<ul>`/`<li>` markup instead of ARIA role
+  attributes on `<span>` elements.
 - Filters are encoded in the page URL (via `history.replaceState`, so browser
   history stays clean), which makes filtered views shareable and bookmarkable.
 - The dataset is validated in-browser on load: every entry must have all five
   trait groups plus a kind, non-empty values, and values that exist in the filter
   lists. Broken data fails loudly instead of rendering half a page.
+- A service worker precaches the app shell and data, making the page fully
+  functional offline after the first visit. A web app manifest enables PWA
+  installability.
+- A `@media print` stylesheet hides the UI chrome and outputs a clean reference
+  card of the current filtered view.
+- JSON-LD structured data is included for search engine understanding.
 - `data.json` is the only thing you need to touch to add a language — the page
-  count updates itself. The filter vocabulary lives once in `index.js` (mirrored
-  by the working notes in `data/optionslist.txt`), and the in-browser validation
-  rejects any data value that isn't in that vocabulary.
+  count updates itself. Each language can optionally include a `url` field for
+  its official homepage, which appears on the card and in the detail dialog.
+  The filter vocabulary lives once in `index.js` (mirrored by the working notes
+  in `data/optionslist.txt`), and the in-browser validation rejects any data
+  value that isn't in that vocabulary.
 
 ## License
 
