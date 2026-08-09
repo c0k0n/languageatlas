@@ -37,7 +37,7 @@
     kind: 'Kind'
   };
 
-  const state = { languages: [], selected: new Map(), excluded: new Map(), collapsed: new Set(), search: '', sort: 'az' };
+  const state = { languages: [], selected: new Map(), excluded: new Map(), collapsed: new Set(), search: '', sort: 'az', compareMode: false, comparedLanguages: new Set() };
 
   const elements = {
     groups: document.querySelector('#filter-groups'),
@@ -56,7 +56,17 @@
     detailsKind: document.querySelector('#details-kind'),
     detailsList: document.querySelector('#details-list'),
     heroCount: document.querySelector('#hero-count'),
-    theme: document.querySelector('#theme-toggle')
+    theme: document.querySelector('#theme-toggle'),
+    compareToggle: document.querySelector('#compare-toggle'),
+    comparePanel: document.querySelector('#compare-panel'),
+    compareClose: document.querySelector('#compare-close'),
+    compareEmpty: document.querySelector('#compare-empty'),
+    compareTableWrap: document.querySelector('#compare-table-wrap'),
+    compareHeadRow: document.querySelector('#compare-head-row'),
+    compareBody: document.querySelector('#compare-body'),
+    compareTitle: document.querySelector('#compare-title'),
+    exportButton: document.querySelector('#export-button'),
+    announcement: document.querySelector('#filter-announcement')
   };
 
   const storage = {
@@ -119,7 +129,12 @@
     const link = language.url
       ? `<a class="card-link" href="${safe(language.url)}" target="_blank" rel="noopener noreferrer" aria-label="${safe(language.name)} homepage" onclick="event.stopPropagation()">↗</a>`
       : '';
-    return `<button class="language-card" type="button" data-language="${safe(language.name)}" aria-label="Show traits for ${safe(language.name)}">
+    const isCompared = state.comparedLanguages.has(language.name);
+    const compareBtn = state.compareMode
+      ? `<button class="compare-toggle ${isCompared ? 'selected' : ''}" type="button" data-compare="${safe(language.name)}" aria-label="${isCompared ? 'Remove' : 'Add'} ${safe(language.name)} ${isCompared ? 'from' : 'to'} comparison" aria-pressed="${isCompared}">${isCompared ? '✓' : '+'}</button>`
+      : '';
+    return `<button class="language-card${isCompared ? ' compare-selected' : ''}" type="button" data-language="${safe(language.name)}" aria-label="Show traits for ${safe(language.name)}">
+      ${compareBtn}
       <span class="card-top"><span class="card-title">${highlight(language.name, query)}</span>${link}<span class="card-arrow">↗</span></span>
       <span class="kind">${highlight(language.kind, query)}</span>
       <span class="tag-row">${tags.map((tag) => `<span class="tag">${highlight(tag, query)}</span>`).join('')}</span>
@@ -172,24 +187,37 @@
       return `<li class="filter-pill ${type === 'exclude' ? 'excluded' : ''}">${label}<button type="button" data-remove="${safe(group)}" data-value="${safe(value)}" aria-label="Remove ${safe(value)}">×</button></li>`;
     }).join('');
     elements.sort.value = state.sort;
+    elements.compareToggle.setAttribute('aria-pressed', String(state.compareMode));
+    elements.comparePanel.hidden = !state.compareMode || state.comparedLanguages.size === 0;
     syncUrl();
+  }
+
+  function renderCards() {
+    const visible = state.languages.filter(matches).sort(comparators[state.sort]);
+    elements.grid.innerHTML = visible.map(card).join('');
+    elements.grid.hidden = !visible.length;
+    elements.empty.hidden = Boolean(visible.length);
   }
 
   function toggle(group, option) {
     const values = state.selected.get(group) || new Set();
-    if (values.has(option)) values.delete(option); else values.add(option);
+    const wasSelected = values.has(option);
+    if (wasSelected) values.delete(option); else values.add(option);
     if (values.size) state.selected.set(group, values); else state.selected.delete(group);
     const excluded = state.excluded.get(group);
     if (excluded?.has(option)) excluded.delete(option);
+    announce(`${wasSelected ? 'Deselected' : 'Selected'} ${FILTER_TITLES.get(group)}: ${option}`);
     render();
   }
 
   function toggleExcluded(group, option) {
     const values = state.excluded.get(group) || new Set();
-    if (values.has(option)) values.delete(option); else values.add(option);
+    const wasExcluded = values.has(option);
+    if (wasExcluded) values.delete(option); else values.add(option);
     if (values.size) state.excluded.set(group, values); else state.excluded.delete(group);
     const selected = state.selected.get(group);
     if (selected?.has(option)) selected.delete(option);
+    announce(`${wasExcluded ? 'Removed exclusion' : 'Excluded'} ${FILTER_TITLES.get(group)}: ${option}`);
     render();
   }
 
@@ -297,6 +325,74 @@
     storage.set(THEME_KEY, theme);
   }
 
+  function announce(message) {
+    elements.announcement.textContent = '';
+    requestAnimationFrame(() => { elements.announcement.textContent = message; });
+  }
+
+  function toggleCompareLanguage(name) {
+    if (state.comparedLanguages.has(name)) {
+      state.comparedLanguages.delete(name);
+    } else if (state.comparedLanguages.size < 3) {
+      state.comparedLanguages.add(name);
+    } else {
+      announce('Maximum 3 languages for comparison.');
+      return;
+    }
+    renderCards();
+    renderComparison();
+  }
+
+  function renderComparison() {
+    const names = [...state.comparedLanguages];
+    const count = names.length;
+    elements.compareTitle.textContent = count ? `${count} ${count === 1 ? 'language' : 'languages'} selected` : 'Select languages to compare';
+    elements.compareEmpty.hidden = count > 0;
+    elements.compareTableWrap.hidden = count === 0;
+    if (count === 0) return;
+    const languages = names.map((name) => state.languages.find((l) => l.name === name)).filter(Boolean);
+    elements.compareHeadRow.innerHTML = '<th></th>' + languages.map((l) =>
+      `<th><button type="button" data-compare-remove="${safe(l.name)}" aria-label="Remove ${safe(l.name)} from comparison">${safe(l.name)} &times;</button></th>`
+    ).join('');
+    elements.compareBody.innerHTML = FIELDS.map((field) => {
+      const label = FIELD_TITLES[field];
+      const values = languages.map((l) => `<td>${asList(l[field]).join(', ')}</td>`).join('');
+      return `<tr><td><strong>${label}</strong></td>${values}</tr>`;
+    }).join('') + (languages.some((l) => l.url) ? `<tr><td><strong>Home</strong></td>${languages.map((l) => `<td>${l.url ? `<a href="${safe(l.url)}" target="_blank" rel="noopener noreferrer">${safe(l.url)}</a>` : '—'}</td>`).join('')}</tr>` : '');
+  }
+
+  function exportAsImage() {
+    if (typeof html2canvas === 'undefined') { announce('Export library not loaded. Check your connection.'); return; }
+    const grid = elements.grid;
+    if (grid.hidden) { announce('Nothing to export — no languages visible.'); return; }
+    elements.exportButton.disabled = true;
+    elements.exportButton.textContent = 'Exporting…';
+    html2canvas(grid, { backgroundColor: null, scale: 2 }).then((canvas) => {
+      const link = document.createElement('a');
+      link.download = 'language-atlas.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }).catch(() => { announce('Export failed. Try again.'); })
+      .finally(() => { elements.exportButton.disabled = false; elements.exportButton.textContent = 'Export PNG'; });
+  }
+
+  function trapFocus(dialog) {
+    const focusable = dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    function handler(event) {
+      if (event.key !== 'Tab') return;
+      if (event.shiftKey) {
+        if (document.activeElement === first) { event.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+    }
+    dialog.addEventListener('keydown', handler);
+    dialog.addEventListener('close', () => dialog.removeEventListener('keydown', handler), { once: true });
+  }
+
   let longPressTimer = null;
 
   function setupEvents() {
@@ -309,6 +405,10 @@
       if (groupClear) return clearGroup(groupClear.dataset.groupClear);
       const remove = event.target.closest('[data-remove]');
       if (remove) return toggle(remove.dataset.remove, remove.dataset.value);
+      const compareRemove = event.target.closest('[data-compare-remove]');
+      if (compareRemove) return toggleCompareLanguage(compareRemove.dataset.compareRemove);
+      const compareLang = event.target.closest('[data-compare]');
+      if (compareLang) { event.stopPropagation(); return toggleCompareLanguage(compareLang.dataset.compare); }
       const language = event.target.closest('[data-language]');
       if (language) return showDetails(language.dataset.language);
     });
@@ -346,8 +446,26 @@
     document.querySelectorAll('#method-button, #footer-method').forEach((button) => button.addEventListener('click', () => elements.dialog.showModal()));
     elements.dialog.querySelector('.close-dialog').addEventListener('click', () => elements.dialog.close());
     elements.details.querySelector('.close-dialog').addEventListener('click', () => elements.details.close());
-    [elements.dialog, elements.details].forEach((dialog) => dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); }));
     elements.theme.addEventListener('click', () => setTheme(document.body.classList.contains('light') ? 'dark' : 'light'));
+    elements.compareToggle.addEventListener('click', () => {
+      state.compareMode = !state.compareMode;
+      if (!state.compareMode) { state.comparedLanguages.clear(); }
+      elements.comparePanel.hidden = !state.compareMode || state.comparedLanguages.size === 0;
+      renderCards();
+      renderComparison();
+    });
+    elements.compareClose.addEventListener('click', () => {
+      state.compareMode = false;
+      state.comparedLanguages.clear();
+      elements.comparePanel.hidden = true;
+      elements.compareToggle.setAttribute('aria-pressed', 'false');
+      renderCards();
+    });
+    elements.exportButton.addEventListener('click', exportAsImage);
+    [elements.dialog, elements.details].forEach((dialog) => {
+      dialog.addEventListener('cancel', (event) => { event.preventDefault(); dialog.close(); });
+      trapFocus(dialog);
+    });
     document.addEventListener('keydown', (event) => {
       if (event.key === '/' && document.activeElement !== elements.search) { event.preventDefault(); elements.search.focus(); }
       if (event.key === 'Escape' && document.activeElement === elements.search) elements.search.blur();

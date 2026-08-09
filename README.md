@@ -37,6 +37,11 @@ filter bar as "NOT Paradigm: Object-oriented." Filter sections are collapsible
 choices float to the top, and search highlights matching text in the result
 cards. Each language card also links to its official homepage.
 
+Hit the **Compare** button to enter comparison mode — click up to 3 language
+cards to select them, and a side-by-side trait table appears below the grid.
+**Export PNG** renders the current filtered grid as a downloadable image (powered
+by html2canvas from a CDN).
+
 ## What this is not
 
 This is not a ranking, not a popularity contest, and not an encyclopedia entry
@@ -50,7 +55,7 @@ nobody should pick a language from a filter UI alone, including this one.)
 - **Source of truth:** `data.json` — one entry per language, each with an optional
   `url` field linking to its official homepage.
 - **Reference notes:** `data/` contains the original working lists (`languageslist.txt`, `optionslist.txt`).
-- **Classification date:** July 2026. Languages change; this dataset is a snapshot, not a promise.
+- **Classification date:** August 2026. Languages change; this dataset is a snapshot, not a promise.
 
 A few honest caveats about the labels:
 
@@ -103,17 +108,20 @@ That's it. No `npm install`, no config, no build.
 ## Project layout
 
 ```
-index.html      Page structure and the two dialogs
-index.css       All styling (dark/light themes, responsive, reduced-motion aware)
-index.js        Filtering, rendering, dialogs, theme persistence — vanilla JS
+index.html      Page structure, dialogs, comparison panel, and preload link
+index.css       All styling (dark/light themes, responsive, reduced-motion, contrast)
+index.js        Filtering, comparison, export, focus trap, theme — vanilla JS
 data.json       The dataset (83 languages, one entry each)
-sw.js           Service worker for offline caching
+sw.js           Service worker with versioned cache for offline use
 manifest.json   Web app manifest for PWA installability
 data/           Original working notes (not shipped)
 _headers        Security + crawling headers, applied by Cloudflare Pages
 robots.txt      Search-engine hints for languageatlas.pages.dev
 sitemap.xml     Single-page sitemap for languageatlas.pages.dev
 ```
+
+External dependency: html2canvas (loaded from CDN) is used for the Export PNG
+feature. If you need fully offline export, you'd need to bundle it locally.
 
 ## Deploying
 
@@ -130,8 +138,8 @@ elsewhere, set the equivalent headers in that host's config.
 
 - Semantic HTML, keyboard-friendly, skip link with `scroll-margin-top`, visible
   focus states, dialogs with proper labelling, `prefers-reduced-motion` respected,
-  live region on the result count, and an `aria-keyshortcuts` hint for the "/"
-  search shortcut.
+  `prefers-contrast` for high-contrast users, live region on the result count,
+  and an `aria-keyshortcuts` hint for the "/" search shortcut.
 - Arrow keys navigate within filter groups, and the search field matches against
   all language traits (name, kind, paradigms, typing, execution, platforms,
   runtimes) — not just the name. Search terms are highlighted in the result cards.
@@ -144,12 +152,30 @@ elsewhere, set the equivalent headers in that host's config.
   attributes on `<span>` elements.
 - Filters are encoded in the page URL (via `history.replaceState`, so browser
   history stays clean), which makes filtered views shareable and bookmarkable.
+- Filter selections and exclusions announce themselves to screen readers via an
+  `aria-live="assertive"` region (e.g. "Selected Typing: Static" or "Excluded
+  Paradigm: Object-oriented").
+- Dialogs trap focus — Tab and Shift+Tab cycle through the dialog's controls
+  instead of escaping to the page behind.
+- Theme transitions are coordinated across body, hero, filters, results, footer,
+  and dialogs (300ms ease) so switching between dark and light modes feels smooth
+  rather than jarring.
 - The dataset is validated in-browser on load: every entry must have all five
   trait groups plus a kind, non-empty values, and values that exist in the filter
   lists. Broken data fails loudly instead of rendering half a page.
-- A service worker precaches the app shell and data, making the page fully
-  functional offline after the first visit. A web app manifest enables PWA
+- A service worker with versioned cache precaches the app shell and data, making
+  the page fully functional offline after the first visit. Old caches are
+  automatically cleaned up on activation. A web app manifest enables PWA
   installability.
+- `data.json` is preloaded via `<link rel="preload">` to start fetching the
+  dataset as early as possible.
+- Headings use `text-wrap: balance` for better visual rhythm on wider viewports.
+- Comparison mode lets users select up to 3 languages and view their traits
+  side-by-side in a table. The comparison panel is keyboard-accessible and
+  announces selection changes to screen readers.
+- Export PNG captures the current filtered grid as a downloadable image using
+  html2canvas (loaded from a CDN). The button shows loading state and announces
+  errors to screen readers.
 - A `@media print` stylesheet hides the UI chrome and outputs a clean reference
   card of the current filtered view.
 - JSON-LD structured data is included for search engine understanding.

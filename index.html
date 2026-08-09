@@ -27,6 +27,7 @@
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23101c1d'/%3E%3Ctext x='50' y='70' font-size='52' text-anchor='middle' fill='%23d8fa63' font-family='monospace'%3E%26lt;/%26gt;%3C/text%3E%3C/svg%3E" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="index.css" />
+  <link rel="preload" href="data.json" as="fetch" crossorigin />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -71,7 +72,7 @@
         <p class="intro">Explore programming languages through the characteristics that matter to you. Everything runs
           locally — no accounts, no tracking, no network required.</p>
       </div>
-      <div class="hero-orbit" aria-hidden="true"><span></span><i></i><b></b></div>
+      <div class="hero-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
     </header>
 
     <section class="explorer" aria-label="Language explorer">
@@ -104,9 +105,12 @@
                 <option value="za">Name Z–A</option>
               </select>
             </label>
+            <button class="action-button" id="compare-toggle" type="button" aria-pressed="false">Compare</button>
+            <button class="action-button" id="export-button" type="button">Export PNG</button>
           </div>
         </div>
         <ul class="active-filters" id="active-filters" aria-label="Active filters"></ul>
+        <div class="sr-only" id="filter-announcement" aria-live="assertive" aria-atomic="true"></div>
         <div class="language-grid" id="language-grid"></div>
         <div class="empty-state" id="empty-state" hidden>
           <span class="empty-glyph" aria-hidden="true">∅</span>
@@ -115,9 +119,28 @@
             filters</button>
         </div>
       </section>
+
+      <section class="compare-panel" id="compare-panel" hidden aria-label="Language comparison">
+        <div class="compare-head">
+          <div>
+            <p class="eyebrow">COMPARISON</p>
+            <h2 id="compare-title">Select languages to compare</h2>
+          </div>
+          <button class="action-button" id="compare-close" type="button">Close</button>
+        </div>
+        <div class="compare-empty" id="compare-empty">
+          <p>Click the <strong>Compare</strong> button on language cards to select up to 3 languages.</p>
+        </div>
+        <div class="compare-table-wrap" id="compare-table-wrap">
+          <table class="compare-table" id="compare-table">
+            <thead id="compare-head-row"></thead>
+            <tbody id="compare-body"></tbody>
+          </table>
+        </div>
+      </section>
     </section>
 
-    <footer><span>LANGUAGE ATLAS / JULY 2026</span><span>Built for curious developers</span><button id="footer-method"
+    <footer><span>LANGUAGE ATLAS / AUGUST 2026</span><span>Built for curious developers</span><button id="footer-method"
         type="button">Classification notes</button></footer>
   </main>
 
@@ -128,7 +151,7 @@
     <h2 id="method-title">Useful labels, carefully applied.</h2>
     <div class="method-copy">
       <p><strong>Scope.</strong> This offline atlas records common, maintained implementations and official first-class
-        targets as of July 2026. A language can appear in more than one category where that reflects a supported
+        targets as of August 2026. A language can appear in more than one category where that reflects a supported
         implementation or target. “Kind” is the family a language belongs to — general-purpose language, assembly,
         shell, query language, or portable bytecode.</p>
       <p><strong>Typing.</strong> Typing is split into two filter sections: “Typing” (static, dynamic, or gradual) and
@@ -158,6 +181,7 @@
     <form method="dialog"><button class="dialog-done" type="submit">Close</button></form>
   </dialog>
 
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
   <script src="index.js"></script>
 </body>
 
