@@ -17,7 +17,9 @@
     "platforms": [
       "Windows",
       "macOS",
-      "Linux"
+      "Linux",
+      "Android",
+      "iOS"
     ],
     "runtimes": [
       "Language-specific runtime"
@@ -33,6 +35,7 @@
     ],
     "typing": [
       "Static",
+      "Dynamic",
       "Strong"
     ],
     "execution": [
@@ -94,6 +97,7 @@
       "Linux"
     ],
     "runtimes": [
+      "Standalone executable",
       "Language-specific runtime"
     ]
   },
@@ -249,13 +253,14 @@
     "name": "C++",
     "kind": "language",
     "paradigms": [
+      "Functional",
       "Imperative",
       "Object-oriented",
       "Procedural"
     ],
     "typing": [
       "Static",
-      "Weak"
+      "Strong"
     ],
     "execution": [
       "Compiled"
@@ -276,7 +281,6 @@
     "name": "Cairo",
     "kind": "language",
     "paradigms": [
-      "Declarative",
       "Functional",
       "Imperative"
     ],
@@ -327,8 +331,7 @@
     "kind": "language",
     "paradigms": [
       "Functional",
-      "Imperative",
-      "Object-oriented"
+      "Imperative"
     ],
     "typing": [
       "Dynamic",
@@ -438,6 +441,7 @@
       "Compiled"
     ],
     "platforms": [
+      "Windows",
       "macOS",
       "Linux"
     ],
@@ -631,6 +635,7 @@
       "Strong"
     ],
     "execution": [
+      "Compiled",
       "Interpreted"
     ],
     "platforms": [
@@ -639,6 +644,7 @@
       "Linux"
     ],
     "runtimes": [
+      "Standalone executable",
       "Language-specific runtime"
     ]
   },
@@ -698,6 +704,7 @@
     "kind": "language",
     "paradigms": [
       "Imperative",
+      "Object-oriented",
       "Procedural"
     ],
     "typing": [
@@ -784,10 +791,12 @@
     "platforms": [
       "Windows",
       "macOS",
-      "Linux"
+      "Linux",
+      "Web Browser"
     ],
     "runtimes": [
-      "BEAM (Erlang)"
+      "BEAM (Erlang)",
+      "JavaScript runtime"
     ]
   },
   {
@@ -836,8 +845,7 @@
     "platforms": [
       "Windows",
       "macOS",
-      "Linux",
-      "Android"
+      "Linux"
     ],
     "runtimes": [
       "JVM (Java)"
@@ -887,11 +895,13 @@
     "platforms": [
       "Windows",
       "macOS",
-      "Linux"
+      "Linux",
+      "Web Browser"
     ],
     "runtimes": [
       "Standalone executable",
-      "Language-specific runtime"
+      "Language-specific runtime",
+      "JavaScript runtime"
     ]
   },
   {
@@ -1012,7 +1022,8 @@
       "Strong"
     ],
     "execution": [
-      "Compiled"
+      "Compiled",
+      "Interpreted"
     ],
     "platforms": [
       "Windows",
@@ -1464,7 +1475,7 @@
     ],
     "typing": [
       "Dynamic",
-      "Strong"
+      "Weak"
     ],
     "execution": [
       "Compiled",
@@ -1491,6 +1502,7 @@
     ],
     "typing": [
       "Dynamic",
+      "Gradual",
       "Strong"
     ],
     "execution": [
@@ -1787,6 +1799,7 @@
       "Compiled"
     ],
     "platforms": [
+      "Windows",
       "macOS",
       "Linux",
       "iOS",
@@ -1806,7 +1819,7 @@
     ],
     "typing": [
       "Dynamic",
-      "Strong"
+      "Weak"
     ],
     "execution": [
       "Compiled",
@@ -1847,6 +1860,7 @@
       "Web Browser"
     ],
     "runtimes": [
+      "JavaScript runtime",
       "Language-specific runtime"
     ]
   },
@@ -1862,7 +1876,6 @@
       "Strong"
     ],
     "execution": [
-      "Compiled",
       "Interpreted"
     ],
     "platforms": [

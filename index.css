@@ -31,7 +31,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
     font: inherit;
 }
 
@@ -281,9 +282,30 @@ h2 {
 }
 
 .filter-group h3 {
-    margin: 0 0 12px;
     color: #d3dfdb;
     font: 500 12px var(--mono);
+}
+
+.filter-group-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.filter-group-head h3 {
+    margin-bottom: 0;
+}
+
+.group-clear {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--coral);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font: 500 10px var(--mono);
 }
 
 .option-list {
@@ -295,6 +317,9 @@ h2 {
 .option {
     appearance: none;
     min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
     color: #b9c7c2;
     border: 1px solid rgba(220, 239, 233, .16);
     border-radius: 3px;
@@ -309,11 +334,24 @@ h2 {
     color: var(--ink);
 }
 
+.option-count {
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.option:hover .option-count {
+    color: var(--blue);
+}
+
 .option[aria-pressed="true"] {
     color: #102021;
     border-color: var(--lime);
     background: var(--lime);
     font-weight: 500;
+}
+
+.option[aria-pressed="true"] .option-count {
+    color: rgba(16, 32, 33, .55);
 }
 
 .method-button {
@@ -346,6 +384,14 @@ h2 {
 
 .results-topline .eyebrow {
     color: var(--blue);
+}
+
+.results-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
 }
 
 .search {
@@ -388,6 +434,30 @@ h2 {
     padding: 1px 4px;
     color: var(--muted);
     font: 10px var(--mono);
+}
+
+.sort {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font: 500 10px var(--mono);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.sort select {
+    padding: 5px 8px;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--surface-2);
+    font: 400 11px var(--mono);
+    cursor: pointer;
+}
+
+.sort select:hover {
+    border-color: var(--blue);
 }
 
 .active-filters {
@@ -781,8 +851,17 @@ body.light .hero-orbit:after {
         align-items: end;
     }
 
+    .results-controls {
+        justify-content: flex-start;
+        gap: 12px;
+    }
+
     .search {
         height: 32px;
+    }
+
+    .sort select {
+        max-width: 140px;
     }
 
     .shortcut {
