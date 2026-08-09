@@ -1,0 +1,7 @@
+# Language Atlas — https://languageatlas.pages.dev
+# Single static page, nothing to block, everything is public.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://languageatlas.pages.dev/sitemap.xml

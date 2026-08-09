@@ -529,12 +529,11 @@
     "name": "Elixir",
     "kind": "language",
     "paradigms": [
-      "Functional",
-      "Imperative",
-      "Object-oriented"
+      "Functional"
     ],
     "typing": [
       "Dynamic",
+      "Gradual",
       "Strong"
     ],
     "execution": [
@@ -600,9 +599,7 @@
     "name": "Erlang",
     "kind": "language",
     "paradigms": [
-      "Functional",
-      "Logic",
-      "Object-oriented"
+      "Functional"
     ],
     "typing": [
       "Dynamic",
@@ -1341,7 +1338,7 @@
     ],
     "typing": [
       "Dynamic",
-      "Strong"
+      "Weak"
     ],
     "execution": [
       "Interpreted"
