@@ -1,0 +1,4 @@
+# This repo ships its built static site from dist/.
+# GitHub Linguist treats the dist/ path as vendored build output and
+# excludes it from the Languages bar, so override that here.
+dist/** linguist-detectable=true
